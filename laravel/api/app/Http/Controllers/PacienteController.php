@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Paciente;
 use Illuminate\Http\Request;
 
 class PacienteController extends Controller
@@ -13,7 +14,9 @@ class PacienteController extends Controller
      */
     public function index()
     {
-        //
+        $paciente = Paciente::all();
+        return \response($paciente);
+
     }
 
     /**
@@ -24,7 +27,14 @@ class PacienteController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'nombre'=>'required',
+            'dni'=>'required',
+            'tipo_sangre'=>'required'
+        ]);
+
+        $paciente = Paciente::create($request->all());
+        return \response("El paciente fue insertado ");
     }
 
     /**
@@ -35,7 +45,8 @@ class PacienteController extends Controller
      */
     public function show($id)
     {
-        //
+        $paciente = Paciente::findOrFail($id);
+        return \response ($paciente);
     }
 
     /**
@@ -47,7 +58,9 @@ class PacienteController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $paciente = Paciente::findOrFail($id)
+            ->update($request->all());
+        return \response("El paciente fue actualizado");
     }
 
     /**
@@ -58,6 +71,7 @@ class PacienteController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Paciente::destroy($id);
+        return \response("El paciente fue eliminado");
     }
 }
