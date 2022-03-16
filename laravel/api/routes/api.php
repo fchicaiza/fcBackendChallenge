@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\MedicoController;
 use App\Http\Controllers\PacienteController;
 use App\Models\Paciente;
 use Illuminate\Http\Request;
@@ -21,3 +22,4 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::apiResource('pacientes', PacienteController::class);
+Route::apiResource('medicos', MedicoController::class);
