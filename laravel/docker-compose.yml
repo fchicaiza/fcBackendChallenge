@@ -1,0 +1,30 @@
+version: "3.8"
+services:
+  laravel_server:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: laravel_svc
+    restart: always
+    environment:
+      DATABASE_CONNECTION: mysql
+      DATABASE_HOST: mysql_host
+      DATABASE_PORT: 3306
+      DATABASE_DATABASE: appbackend_db
+      DATABASE_USER: root
+      DATABASE_PASSWORD: MYSQL_ROOT_PASSWORD
+    ports:
+      - 8890:80
+    volumes:
+      - ./api/:/var/www
+      - ./api/public:/var/www/html
+    networks:
+      laravel_net:
+        aliases:
+          - laravel_host
+volumes:
+  api: {}
+networks:
+  laravel_net:
+    name: network_laravel_net
+    driver: bridge
